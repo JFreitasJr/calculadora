@@ -130,8 +130,8 @@ class Calculadora {
         this.memoria = 0;
     }
 
-    //Tecla Raiz quadrada: teste
-    raizQuadrada() {
+    //Tecla Raiz quadrada: pega o número no visor e calcula a raiz desse número e limita o resultado em até 10 digitos
+    teclaRaiz() {
         if (this.estadoErro) return;
         let num = parseFloat(this.nrVisor);
         if (num < 0){
@@ -140,6 +140,15 @@ class Calculadora {
             return;
         }
         let resultado = Math.sqrt(num);
+        this.nrVisor = String(resultado).slice(0, 10);
+    }
+
+    // Tecla Porcentagem: calcula o valor da porcentagem digitada do valor na memória
+    teclaPorc() {
+        if (this.estadoErro) return;
+        let num = parseFloat(this.memTemp);
+        let porc = parseFloat(this.nrVisor) / 100;
+        let resultado = num * porc;
         this.nrVisor = String(resultado).slice(0, 10);
     }
     
@@ -203,9 +212,15 @@ let teclaCLM = () => {
     calculadora.teclaCLM();
 }
 
-//Calcula raiz?
+// CALCULA A RAIZ DO NÚMERO SELECIONADO
 let teclaRaiz = () => {
-    calculadora.raizQuadrada();
+    calculadora.teclaRaiz();
+    atualizaVisor();
+}
+
+// 
+let teclaPorc = () => {
+    calculadora.teclaPorc();
     atualizaVisor();
 }
 

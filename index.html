@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="container2">
+
+            <div id="visor-id" class="visor">
+                <p>0123456789</p>
+            </div>
+            <div class="container-teclas">
+                <div onclick="teclaC()" class="teclas-especiais">C</div>
+                <div onclick="teclaCLM()" class="teclas-especiais">CLM</div>
+                <div onclick="teclaRaiz()" class="teclas-especiais">√</div>
+                <div onclick="" class="teclas-especiais">S/F</div>
+                <div onclick="teclaRM()" class="teclas-especiais">RM</div>
+                <div onclick="teclaMmais()" class="teclas-especiais">M+</div>
+                <div onclick="teclaMmenos" class="teclas-especiais">M-</div>
+                <div onclick="defineOp('/')" class="teclas-especiais">/</div>
+                <div onclick="digito('7')" class="teclas">7</div>
+                <div onclick="digito('8')" class="teclas">8</div>
+                <div onclick="digito('9')" class="teclas">9</div>
+                <div onclick="defineOp('*')" class="teclas-especiais">x</div>
+                <div onclick="digito('4')" class="teclas">4</div>
+                <div onclick="digito('5')" class="teclas">5</div>
+                <div onclick="digito('6')" class="teclas">6</div>
+                <div onclick="defineOp('-')" class="teclas-especiais">-</div>
+                <div onclick="digito('1')" class="teclas">1</div>
+                <div onclick="digito('2')" class="teclas">2</div>
+                <div onclick="digito('3')" class="teclas">3</div>
+                <div onclick="defineOp('+')" class="teclas-especiais">+</div>
+                <div onclick="digito('.')" class="teclas">.</div>
+                <div onclick="digito('0')" class="teclas">0</div>
+                <div onclick="" class="teclas-especiais">%</div>
+                <div onclick="igual()" class="teclas-especiais">=</div>
+
+
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

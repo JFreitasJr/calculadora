@@ -40,7 +40,7 @@ class Calculadora {
         this.memTemp = '';
         this.memoria = 0;
         this.opAtual = this.op.NOP;
-        document.getElementById('visor-id').innerHTML = this.nrVisor
+        document.getElementById('visor-id').innerHTML = this.nrVisor;
     }
 
     // Retorna o contúdo do visor
@@ -118,11 +118,15 @@ class Calculadora {
                 }
                 resultado = num1 / num2;
         }
+        if (Math.abs(Math.round(resultado) - resultado) < 0.0001) {
+            resultado = Math.round(resultado);
+        }
+    
         this.opAtual = this.op.NOP;
         this.ptDecimal = false;
         this.iniciouSegundo = false;
         this.memTemp = '';
-        this.nrVisor = String(resultado).slice(0, 10);
+        this.nrVisor = parseFloat(resultado.toFixed(10)).toString();
     }
 
     // Limpa o conteúdo do visor e as operações (mas não a memória)

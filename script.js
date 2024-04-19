@@ -130,11 +130,11 @@ class Calculadora {
         this.memoria = 0;
     }
 
-    //Tecla Raiz quadrada: teste
-    raizQuadrada() {
+    //Tecla Raiz quadrada: pega o número no visor e calcula a raiz desse número e limita o resultado em até 10 digitos
+    teclaRaiz() {
         if (this.estadoErro) return;
         let num = parseFloat(this.nrVisor);
-        if (num < 0){
+        if (num < 0) {
             this.estadoErro = true;
             this.nrVisor = 'ERRO!';
             return;
@@ -142,7 +142,45 @@ class Calculadora {
         let resultado = Math.sqrt(num);
         this.nrVisor = String(resultado).slice(0, 10);
     }
-    
+
+    // Tecla Porcentagem: calcula o valor da porcentagem digitada do valor na memória
+    teclaPorc() {
+        if (this.estadoErro) return;
+        let num = parseFloat(this.memTemp);
+        let porc = parseFloat(this.nrVisor) / 100;
+        let resultado = num * porc;
+        this.nrVisor = String(resultado).slice(0, 10);
+    }
+
+    // Tecla Potência: calcula o quadrado do número no visor
+    teclaPot() {
+        if (this.estadoErro) return;
+        let num = parseFloat(this.nrVisor);
+        let resultado = num * num;
+        this.nrVisor = String(resultado).slice(0, 10);
+    }
+
+    //Tecla inverso: Inverte o valor apresentado no visor
+    teclaInver() {
+        if (this.estadoErro) return;
+        let num = parseFloat(this.nrVisor);
+        if(num === 0) {
+            this.estadoErro = true;
+            this.nrVisor = 'DIVISÃO POR ZERO!';
+            return;
+        }
+        let resultado = 1 / num;
+        this.nrVisor = String(resultado).slice(0, 10);
+    }
+
+    //Tecla troca de sinal: trocal o sinal do valor apresentado no visor
+    teclaSinal() {
+        if (this.estadoErro) return;
+        let num= parseFloat(this.nrVisor);
+        let resultado = -(num);
+        this.nrVisor = String(resultado).slice(0, 10);
+    }
+
 }
 
 
@@ -203,9 +241,33 @@ let teclaCLM = () => {
     calculadora.teclaCLM();
 }
 
-//Calcula raiz?
+// CALCULA A RAIZ DO NÚMERO NO VISOR
 let teclaRaiz = () => {
-    calculadora.raizQuadrada();
+    calculadora.teclaRaiz();
+    atualizaVisor();
+}
+
+// REALIZA A CONVERSÃO DO NÚMERO NA MEMÓRIA NA PORCENTAGEM SELECIONADA
+let teclaPorc = () => {
+    calculadora.teclaPorc();
+    atualizaVisor();
+}
+
+// REALIZA A POTÊNCIA DO VALOR NO VISOR
+let teclaPot = () => {
+    calculadora.teclaPot();
+    atualizaVisor();
+}
+
+//REALIZA A OPERAÇÃO DA TECLA INVERSO
+let teclaInver = () => {
+    calculadora.teclaInver();
+    atualizaVisor();
+}
+
+//
+let teclaSinal = () => {
+    calculadora.teclaSinal();
     atualizaVisor();
 }
 

@@ -15,6 +15,32 @@ class Calculadora {
             SUM: 4
         };
         this.opAtual = this.op.NOP;
+        this.ligada = false;
+    }
+
+    //
+    ligarCalc() {
+        this.ligada= true;
+        this.nrVisor = '0';
+        this.ptDecimal = false;
+        this.iniciouSegundo = false;
+        this.estadoErro = false;
+        this.memTemp = '';
+        this.memoria = 0;
+        this.opAtual = this.op.NOP;
+    }
+
+    //
+    desligarCalc() {
+        this.ligada = false;
+        this.nrVisor = '';
+        this.ptDecimal = false;
+        this.iniciouSegundo = false;
+        this.estadoErro = false;
+        this.memTemp = '';
+        this.memoria = 0;
+        this.opAtual = this.op.NOP;
+        document.getElementById('visor-id').innerHTML = this.nrVisor
     }
 
     // Retorna o contúdo do visor
@@ -24,6 +50,7 @@ class Calculadora {
 
     // Recebe um dígito
     insereDigito(dig) {
+        if (!this.ligada) return;
         if (this.estadoErro) return;
         if (dig.length != 1) return;
         if ((dig < '0' || dig > '9') && dig != '.') return;
@@ -46,6 +73,7 @@ class Calculadora {
 
     // Define a operação atual
     defineOperacao(op) {
+        if (!this.ligada) return;
         if (this.estadoErro) return;
         switch (op) {
             case '+':
@@ -66,6 +94,7 @@ class Calculadora {
 
     // Executa operação: tecla IGUAL
     igual() {
+        if (!this.ligada) return;
         if (this.estadoErro) return;
         let num1 = parseFloat(this.memTemp);
         let num2 = parseFloat(this.nrVisor);
@@ -98,6 +127,7 @@ class Calculadora {
 
     // Limpa o conteúdo do visor e as operações (mas não a memória)
     teclaC() {
+        if (!this.ligada) return;
         this.nrVisor = '0';
         this.ptDecimal = false;
         this.memTemp = '';
@@ -108,30 +138,35 @@ class Calculadora {
 
     // tecla M+ : acrescenta à memória o número no visor
     teclaMmais() {
+        if (!this.ligada) return;
         if (this.estadoErro) return;
         this.memoria += parseFloat(this.nrVisor);
     }
 
     // tecla M- : subtrai da memória o número no visor
     teclaMmenos() {
+        if (!this.ligada) return;
         if (this.estadoErro) return;
         this.memoria -= parseFloat(this.nrVisor);
     }
 
     // tecla RM : recupera o conteúdo da memória -> coloca no visor
     teclaRM() {
+        if (!this.ligada) return;
         if (this.estadoErro) return;
         this.nrVisor = String(this.memoria);
     }
 
     // tecla CLM : limpa totalmente o conteúdo da memória -> atribui 0
     teclaCLM() {
+        if (!this.ligada) return;
         if (this.estadoErro) return;
         this.memoria = 0;
     }
 
     //Tecla Raiz quadrada: pega o número no visor e calcula a raiz desse número e limita o resultado em até 10 digitos
     teclaRaiz() {
+        if (!this.ligada) return;
         if (this.estadoErro) return;
         let num = parseFloat(this.nrVisor);
         if (num < 0) {
@@ -145,6 +180,7 @@ class Calculadora {
 
     // Tecla Porcentagem: calcula o valor da porcentagem digitada do valor na memória
     teclaPorc() {
+        if (!this.ligada) return;
         if (this.estadoErro) return;
         let num = parseFloat(this.memTemp);
         let porc = parseFloat(this.nrVisor) / 100;
@@ -154,6 +190,7 @@ class Calculadora {
 
     // Tecla Potência: calcula o quadrado do número no visor
     teclaPot() {
+        if (!this.ligada) return;
         if (this.estadoErro) return;
         let num = parseFloat(this.nrVisor);
         let resultado = num * num;
@@ -162,6 +199,7 @@ class Calculadora {
 
     //Tecla inverso: Inverte o valor apresentado no visor
     teclaInver() {
+        if (!this.ligada) return;
         if (this.estadoErro) return;
         let num = parseFloat(this.nrVisor);
         if(num === 0) {
@@ -175,6 +213,7 @@ class Calculadora {
 
     //Tecla troca de sinal: trocal o sinal do valor apresentado no visor
     teclaSinal() {
+        if (!this.ligada) return;
         if (this.estadoErro) return;
         let num= parseFloat(this.nrVisor);
         let resultado = -(num);
@@ -188,8 +227,24 @@ class Calculadora {
 //      REAÇÃO A EVENTOS DO MOUSE
 // ========================================================================
 
+//
+let alternarCalculadora = () => {
+    const botaoLigarDesligar = document.querySelector('.teclas-ligardesligar');
+
+    if (calculadora.ligada) {
+        calculadora.desligarCalc();
+        botaoLigarDesligar.textContent = 'ON';
+    } else{
+        calculadora.ligarCalc();
+        botaoLigarDesligar.textContent = 'OFF';
+    }
+    atualizaVisor();
+}
+
 // Exibe o conteúdo do visor
 let atualizaVisor = () => {
+    if (!calculadora.ligada) return;
+
     document.getElementById('visor-id').innerHTML = calculadora.mostraVisor();
 }
 
